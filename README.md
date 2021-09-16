@@ -405,7 +405,7 @@ and research use only. For a commercial license please contact the authors.
 You can view a license summary [here](https://creativecommons.org/licenses/by-nc/4.0/)
 
 # API
-The documentation of JDHS can be accessed [here](#link).
+The documentation of JDHS can be accessed [here](https://al-madina.github.io/Dynamic-Heuristic-Sets/).
 
 # Compile
 To compile JDHS, you need to add `chesc.jar` to your class path. This jar file can be 
