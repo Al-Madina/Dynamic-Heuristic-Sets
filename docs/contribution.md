@@ -6,7 +6,9 @@
 If your data is large, please do not host it here since it will slow the pull and clone requests.
 3. Documents related to the repository should reside in the [docs](#docs) directory.
 4. Images related to the repository should reside in the [images](#images) directory.
-5. Some more rules for contributing are coming up!
+5. When fixing a bug or extending the library, please create a _branch_ for that and
+do not merge with the _main_ branch. We will review your contribution before merging it.
+6. Some more rules for contributing are coming up!
 
 # How to Contribute
 You can contribute to JDHS in the following ways:

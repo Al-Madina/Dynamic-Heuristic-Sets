@@ -19,6 +19,8 @@ public class PhaseDominanceUpdate extends Update{
     protected final int phaseLen;
 
     public PhaseDominanceUpdate(int phaseLen) {
+        //Deal with in appropriate argument
+        if(phaseLen <= 0) phaseLen = 1; //update every iteration
         this.phaseLen = phaseLen;
     }
     

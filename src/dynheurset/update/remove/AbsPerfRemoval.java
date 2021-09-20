@@ -37,10 +37,26 @@ public class AbsPerfRemoval extends GroupRemoval{
         //`idx` in the universal set. 
         double[] indPerf = getIndPerf();
         double mean = util.mean(indPerf);
+        //If the mean is negative, we need to adjust `aspiration` if all values
+        //are negative
+        if(mean < 0){
+            boolean allNegatives = true;
+            for(int idx=0; idx < indPerf.length; idx++){
+                if(indPerf[idx] >= 0){
+                    allNegatives = false;
+                    break;
+                }
+            }
+            //If all values are negative, adjust `aspiration` to avoid all the
+            //possible case of removing all heuristics
+            if(allNegatives) aspiration = 1/aspiration;
+        }
         //Remove heuristics with performance lower than the mean reduced by a factor        
         for(int idx=0; idx < indPerf.length; idx++){
             if(indPerf[idx] < aspiration*mean) removedHeurSet.add(idx);
-        }       
+        }            
+        //If aspiration is adjusted, reverts back to its original value
+        if(aspiration > 1) aspiration = 1/aspiration;
     }
    
     

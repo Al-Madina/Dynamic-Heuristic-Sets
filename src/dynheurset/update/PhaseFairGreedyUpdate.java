@@ -34,6 +34,8 @@ public class PhaseFairGreedyUpdate extends PhaseGreedyUpdate{
 
     public PhaseFairGreedyUpdate(int max, int phaseLen, int top) {
         super(phaseLen, top);
+        //Deal with inappropriate maximum frequency
+        if(max <= 0) max = 1;
         this.max = max;                
     }
     
@@ -45,15 +47,14 @@ public class PhaseFairGreedyUpdate extends PhaseGreedyUpdate{
             freq = new ArrayList<>(heurList.size());
             for(int idx=0; idx<heurList.size(); idx++) freq.add(0);
         }
+        //Do not count permanently removed heuristics
+        for(int idx : remove.removedHeurSet) freq.set(idx, max);
         //Get the minimum frequency for the least-used heuristic
         int min = (int)(util.min(freq));
         //Reset frequency if all heuristics are used equally
         if(min >= max){
            for(int idx=0; idx<freq.size(); idx++) {
-               if(remove.removedHeurSet.contains(idx)) {
-                   freq.set(idx, max);
-                   continue;
-               }
+               if(remove.removedHeurSet.contains(idx)) continue;
                freq.set(idx, 0);
            }
         }        
@@ -63,7 +64,7 @@ public class PhaseFairGreedyUpdate extends PhaseGreedyUpdate{
             //Keep it greedy
             top = freeHeurs > 1 ? freeHeurs - 1 : freeHeurs;            
         }
-         //Measure the performance of all heuristics       
+        //Measure the performance of all heuristics       
         List<Double> values = measure.measure();
         //Heuristics that should not be selected
         Set<Integer> seen = new HashSet<>(freeHeurs);
@@ -72,16 +73,20 @@ public class PhaseFairGreedyUpdate extends PhaseGreedyUpdate{
         for(int idx=0; idx < values.size(); idx++){
             //Get the index of the maximum value (index of the best heuristic
             //among all heuristics available for selection)
-            int chosen = util.getIndexOfMaxValue(values, seen);      
+            int chosen = util.getIndexOfMaxValue(values, seen);  
+            //If `chosen = -1`, all heuristics with frequency less than the maximum
+            //frequency were already selected and the number of these is less than
+            //`top`. 
+            if(chosen == -1) return;
             if(freq.get(chosen) >= max) {
                 seen.add(chosen);
                 continue;
-            }
+            }            
             activeList.add(chosen);
             //Make it unavailable for selection again
             seen.add(chosen);
             //Update the frequency of chosen heuristics
-            freq.set(chosen, freq.get(chosen) + 1);
+            freq.set(chosen, freq.get(chosen) + 1);            
             if(activeList.size() == top) break;
         }
     }

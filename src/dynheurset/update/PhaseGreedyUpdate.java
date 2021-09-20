@@ -29,8 +29,11 @@ public class PhaseGreedyUpdate extends Update{
     protected Utility util;
     
     public PhaseGreedyUpdate(int phaseLen, int top){
-        this.phaseLen = phaseLen;
-        this.top = top;
+        //Deal with in appropriate argument
+        if(phaseLen <= 0) phaseLen = 1; //update every iteration
+        this.phaseLen = phaseLen;        
+        if(top <= 0) top = 1; //choose the best heuristic always
+        this.top = top;        
         util = new Utility();
     }
 

@@ -19,6 +19,8 @@ public class PatientPhaseGreedyUpdate extends PhaseGreedyUpdate{
 
     public PatientPhaseGreedyUpdate(double patience, int phaseLen, int top) {
         super(phaseLen, top);
+        //Deal with inappropriate patience
+        if(patience <= 0) patience = 1; //Wait as long as it the longest we waited so far
         this.patience = patience;
     }
     

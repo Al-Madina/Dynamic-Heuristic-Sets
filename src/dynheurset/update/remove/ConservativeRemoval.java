@@ -43,10 +43,40 @@ public class ConservativeRemoval extends GroupRemoval{
         //`idx` in the universal set. 
         double[] groupPerf = getGroupPerf();
         double gpMean = util.mean(groupPerf);
-        
+        //Needs to handle the aspiration of the individual and group performance 
+        //since of these may contain negative values only
+        double indAsp = aspiration;
+        double gpAsp = aspiration;
+        //If the mean is negative, we need to adjust `aspiration` if all values
+        //are negative
+        if(indMean < 0){
+            boolean allNegatives = true;
+            for(int idx=0; idx < indPerf.length; idx++){
+                if(indPerf[idx] >= 0){
+                    allNegatives = false;
+                    break;
+                }
+            }
+            //If all values are negative, adjust `aspiration` to avoid all the
+            //possible case of removing all heuristics
+            if(allNegatives) indAsp = 1/aspiration;
+        }
+        //Do the same for the group performance
+        if(gpMean < 0){
+            boolean allNegatives = true;
+            for(int idx=0; idx < groupPerf.length; idx++){
+                if(groupPerf[idx] >= 0){
+                    allNegatives = false;
+                    break;
+                }
+            }
+            //If all values are negative, adjust `aspiration` to avoid all the
+            //possible case of removing all heuristics
+            if(allNegatives) gpAsp = 1/aspiration;
+        }
         //Remove heuristics with performance lower than the mean reduced by a factor 
         for(int idx=0; idx < groupPerf.length; idx++){
-            if(indPerf[idx] < aspiration*indMean && groupPerf[idx] < aspiration*gpMean){
+            if(indPerf[idx] < indAsp*indMean && groupPerf[idx] < gpAsp*gpMean){
                 removedHeurSet.add(idx);
             }
         }

@@ -20,6 +20,8 @@ public class PatientPhaseQualityIndexUpdate extends PhaseQualityIndexUpdate{
 
     public PatientPhaseQualityIndexUpdate(double patience, int phaseLen, double aspiration) {
         super(phaseLen, aspiration);
+        //Deal with inappropriate patience
+        if(patience <= 0) patience = 1; //Wait as long as it the longest we waited so far
         this.patience = patience;
     }
     

@@ -1,22 +1,13 @@
 package dynheurset;
 
-import dynheurset.measure.ImprFreqMeasure;
-import dynheurset.measure.Measure;
-import dynheurset.update.PhaseDominanceUpdate;
-import dynheurset.update.Update;
-import dynheurset.update.remove.FreqWorstRemoval;
-import dynheurset.update.remove.Remove;
-import dynheurset.update.reset.FreqReset;
-import dynheurset.update.reset.Reset;
-import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import runner.GenericRunner;
 import runner.Result;
-import runner.examples.HyFlexRunner;
-import runner.examples.HyFlexRunner2;
+import runner.examples.HyFlexTestRunner;
+import runner.examples.HyFlexTestRunner2;
 import runner.examples.SkiLodgeRunner;
 import runner.examples.SkiLodgeRunner2;
 
@@ -31,15 +22,38 @@ public class Main {
         //A random number generator to generate the seeds for all runs
         Random rng = new Random();
         //The time limit of the simulation
-        long timeLimit = 60000;
+        long timeLimit = 10000;
         //Number of runs
-        int numRuns = 1;
+        int numRuns = 4;
+
+        //We will create and execute dozens of dynamic sets (in fact, we did
+        //TENS of THOUSANDS of these on a cluster). This is important since some of the
+        //bugs are difficult to find in an interacting system like dynamic sets
+        //that consists of several components. The bugs may only appear when some
+        //components interact and one functionality of a component can cause
+        //a functionality of another component to break
+        //If you want, you can do a proper "integration test"
         
-//        solveHyFlexProblem(rng, timeLimit, numRuns);
-//        solveHyFlexProblem2(rng, timeLimit, numRuns);
-//        solveSkiLodge(rng, timeLimit, numRuns);
-        solveSkiLodge2(rng, timeLimit, numRuns);
+        //Let us get rolling now!
+        int iter = 10;
+        for(int r=1; r < iter+1; r++){
+            System.out.println("Starting test No: " + r); 
+            //Solve a HyFlex problem (SAT in our case) by a hyper-heuristic that
+            //applies a perturbative heuristics followed by a local search heuristic
+            //and uses two dynamic sets to manage each type of heuristics separately
+            solveHyFlexProblem2(rng, timeLimit, numRuns);
+            System.out.println("Test No: " + r + " was successful");
+        }
+        //If we reach this line, we passed all tests
+        int numTests = iter*numRuns;
+        //These are not tests in the technical terms; however, this is sort of
+        //"proof by demonstration" if thousands of dynamic sets work gracefully
+        //it is likely that integration bugs do not exist        
+        System.out.println(numTests + " tests are passed");
         
+        //This a hyper-heuristic that does not distinguish between heuristics of
+        //different types and uses one dynamic set to manage them all.
+        //solveHyFlexProblem(rng, timeLimit, numRuns);
     }
     
     /**
@@ -95,8 +109,12 @@ public class Main {
      * @throws ExecutionException 
      */
     private static void solveHyFlexProblem(Random rng, long timeLimit, int numRuns) throws InterruptedException, ExecutionException{
-        GenericRunner satRunner = new HyFlexRunner(rng.nextLong(), timeLimit);
-        Result res = satRunner.run(numRuns);
+        //Uncomment the following line if you want to use a predetermined dynamicset
+        //GenericRunner hyflexRunner = new HyFlexRunner(rng.nextLong(), timeLimit);
+        
+        //Create dynamic set at random
+        GenericRunner hyflexRunner = new HyFlexTestRunner(rng.nextLong(), timeLimit);
+        Result res = hyflexRunner.run(numRuns);
         printResults(res);
     }
     
@@ -111,8 +129,12 @@ public class Main {
      * @throws ExecutionException 
      */
     private static void solveHyFlexProblem2(Random rng, long timeLimit, int numRuns) throws InterruptedException, ExecutionException{
-        GenericRunner satRunner = new HyFlexRunner2(rng.nextLong(), timeLimit);
-        List<Result> resList= satRunner.run2(numRuns);
+        //Uncomment the following line if you want to use a predetermined dynamicset
+        //GenericRunner hyflexRunner = new HyFlexRunner2(rng.nextLong(), timeLimit);
+        
+        //Create dynamic set at random
+        GenericRunner hyflexRunner = new HyFlexTestRunner2(rng.nextLong(), timeLimit);
+        List<Result> resList= hyflexRunner.run2(numRuns);
         System.out.println("Printing results for perturbative heuristic dynamic set");
         printResults(resList.get(0));
         System.out.println("");

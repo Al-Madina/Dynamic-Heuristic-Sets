@@ -21,6 +21,8 @@ public class PatientPhaseDominanceUpdate extends PhaseDominanceUpdate{
 
     public PatientPhaseDominanceUpdate(double patience, int phaseLen) {
         super(phaseLen);
+        //Deal with inappropriate patience
+        if(patience <= 0) patience = 1; //Wait as long as it the longest we waited so far
         this.patience = patience;
     }
 

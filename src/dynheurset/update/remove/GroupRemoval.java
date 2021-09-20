@@ -4,6 +4,10 @@ import util.Utility;
 
 /**
  * The base class for removal strategies that remove multiple heuristics at once.
+ * <p>
+ * The removal is carried out by considering the individual performance
+ * of heuristics, the relative performance of heuristics, and/or a combination
+ * of both.
  * @author Ahmed Hassan (ahmedhassan@aims.ac.za)
  */
 public abstract class GroupRemoval extends Remove{
@@ -50,7 +54,15 @@ public abstract class GroupRemoval extends Remove{
         util = new Utility();
     }
     
-    
+    /**
+     * Returns the individual (absolute) performance for each heuristic.
+     * <p>
+     * The individual performance of a heuristic is calculated based on the
+     * heuristic performance history without considering other heuristics. For
+     * instance, the ratio between the improving moves and the disimproving 
+     * moves that the heuristic has made.
+     * @return the individual performance for each heuristic
+     */
     protected double[] getIndPerf(){
         double[] impr = util.calcAbsolutePerf(runStat.impr, runStat.disimpr);
         double[] disimpr = util.calcAbsolutePerf(runStat.disimpr, runStat.impr);
@@ -63,7 +75,16 @@ public abstract class GroupRemoval extends Remove{
         }
         return indPerf;
     }
-        
+    
+    /**
+     * Returns the performance of group (relative) performance of each heuristic.
+     * <p>
+     * The relative performance of a heuristic is calculated considering other
+     * heuristics. For instance, ratio between the percentage of improvement the 
+     * heuristic has contributed to the total percentage improvement made by all
+     * heuristics.
+     * @return the performance of group (relative) performance of each heuristic
+     */
     protected double[] getGroupPerf(){
         double[] impr = util.calcRelativePerf(runStat.impr);
         double[] disimpr = util.calcRelativePerf(runStat.disimpr);

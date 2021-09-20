@@ -37,7 +37,15 @@ public class HyFlexHyperHeuristicRunner2 implements Callable<ThreadOutput[]>{
         hyperHeur.setLsDynSet(lsDynSet);
         
         //Run hyper-heuristic
-        hyperHeur.run();
+        try{
+            hyperHeur.run();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("Dynamic sets that may cause the problem: ");
+            System.out.println(pertDynSet);
+            System.out.println(lsDynSet);
+            System.exit(3);
+        }
         
         //Get runStat objects which holds different run statistics
         RunStat pertRunStat = pertDynSet.getRunStatistics();

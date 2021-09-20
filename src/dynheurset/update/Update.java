@@ -231,4 +231,12 @@ public abstract class Update {
     public List<Integer> getActiveList(){
         return activeList;
     }
+    
+    @Override
+    public String toString(){
+        return measure.getClass().getSimpleName() + " " 
+                + remove.getClass().getSimpleName() + " "
+                + reset.getClass().getSimpleName() + " "
+                + this.getClass().getSimpleName();
+    }
 }

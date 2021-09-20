@@ -32,7 +32,7 @@ are the heuristics identified by 2 and 6.
 
 # Features
 1. Platform-independent written in Java to enhance portability.
-2. [HyFlex](#link) compatible. Researchers using HyFlex can easily integrate JDHS into their hyper-heuristic.
+2. [HyFlex](http://www.asap.cs.nott.ac.uk/external/chesc2011/hyflex_description.html) compatible. Researchers using HyFlex can easily integrate JDHS into their hyper-heuristic.
 3. Hyper-heuristic independent. Any selection hyper-heuristic can use JDHS.
 4. Made of decoupled components facilitating fast development, prototyping, and testing.
 5. Extendible. JDHS can be easily extended by implementing some _core abstract_ classes that capture key functionalities of dynamic sets such as the update strategy and removal strategy.
@@ -405,7 +405,7 @@ and research use only. For a commercial license please contact the authors.
 You can view a license summary [here](https://creativecommons.org/licenses/by-nc/4.0/)
 
 # API
-The documentation of JDHS can be accessed [here](https://al-madina.github.io/Dynamic-Heuristic-Sets/).
+The documentation of JDHS can be accessed [here](#link).
 
 # Compile
 To compile JDHS, you need to add `chesc.jar` to your class path. This jar file can be 
@@ -418,7 +418,7 @@ If you are using NetBeans, you can easily add the jar file:
 * Choose `Open`
 
 If you are using the command line, it is easier to include all `.java` files in
-a source file: `find -name "*.java" > sources.txt` assuming that you execute this
+a source file: `find -name "*java" > sources.txt` assuming that you execute this
 command from inside the _root directory_ of the repository.
 Then, compile: `javac -cp ./src:./lib/* @sources.txt`.
 Finally, run the application: `java -cp ./src/:./lib/* dynheurset.Main`

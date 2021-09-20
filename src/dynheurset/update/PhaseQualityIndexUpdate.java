@@ -29,13 +29,15 @@ public class PhaseQualityIndexUpdate extends Update{
     protected Utility util;
 
     public PhaseQualityIndexUpdate(int phaseLen, double aspiration) {
+        //Deal with in appropriate argument
+        if(phaseLen <= 0) phaseLen = 1; //update every iteration
         this.phaseLen = phaseLen;
-        this.aspiration = aspiration;
         //Aspiration of values higher than 1 may lead to an empty active list 
         //which will cause an exception.
         //Values less than 0 will not be a problem since it will result in 
         //including all heuristics in the active list
-        if(this.aspiration > 1) this.aspiration = 1;
+        if(aspiration > 1) aspiration = 1;        
+        this.aspiration = aspiration;        
         util = new Utility();
     }
 

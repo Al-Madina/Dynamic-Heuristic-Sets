@@ -190,4 +190,9 @@ public class DynHeurSet {
     public int getNumberOfResets(){
         return update.numReset;
     }
+    
+    @Override
+    public String toString(){
+        return update.toString();
+    }
 }
