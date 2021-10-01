@@ -1,7 +1,7 @@
 # JDHS
 **_A Java Library for Dynamic Heuristic Sets_**
 
-<p align="center"><img src="images/nicog.png" alt="NICOG log" width="250" height="250"/></p>
+<p align="center"><img src="images/nicog.png" alt="NICOG log" width="200" height="200"/></p>
 
 JDHS is a java library for dynamic heuristic sets (dynamic set) developed by [Nature-Inspired Computing Optimization 
 Group (NICOG)](https://www.cs.up.ac.za/cs/nicog/). JDHS can be used within hyper-heuristics to manage the set of low-level heuristics utilized 
@@ -32,7 +32,7 @@ are the heuristics identified by 2 and 6.
 
 # Features
 1. Platform-independent written in Java to enhance portability.
-2. [HyFlex](http://www.asap.cs.nott.ac.uk/external/chesc2011/hyflex_description.html) compatible. Researchers using HyFlex can easily integrate JDHS into their hyper-heuristic.
+2. [HyFlex](https://link.springer.com/chapter/10.1007/978-3-642-29124-1_12) compatible. Researchers using HyFlex can easily integrate JDHS into their hyper-heuristic.
 3. Hyper-heuristic independent. Any selection hyper-heuristic can use JDHS.
 4. Made of decoupled components facilitating fast development, prototyping, and testing.
 5. Extendible. JDHS can be easily extended by implementing some _core abstract_ classes that capture key functionalities of dynamic sets such as the update strategy and removal strategy.
@@ -405,7 +405,7 @@ and research use only. For a commercial license please contact the authors.
 You can view a license summary [here](https://creativecommons.org/licenses/by-nc/4.0/)
 
 # API
-The documentation of JDHS can be accessed [here](https://al-madina.github.io/Dynamic-Heuristic-Sets/).
+The documentation of JDHS can be accessed [here](#https://al-madina.github.io/Dynamic-Heuristic-Sets/).
 
 # Compile
 To compile JDHS, you need to add `chesc.jar` to your class path. This jar file can be 
