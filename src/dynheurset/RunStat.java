@@ -204,7 +204,7 @@ public class RunStat {
      * Note that <code>idx</code> is the index of the heuristic in the universal
      * set.
      */
-    public List<double[]> disimprList; //TODO
+    public List<double[]> disimprList;
     /**
      * The number of improvement for each heuristic over several periods during 
      * the search.
@@ -242,12 +242,12 @@ public class RunStat {
      */
     private final Utility utility;
 
+    
     public RunStat() {
         //bean = ManagementFactory.getThreadMXBean();
         utility = new Utility();
     }
-    
-    
+        
     /**
      * Sets the universal set for this <code>RunStat</code> object.
      * <p>

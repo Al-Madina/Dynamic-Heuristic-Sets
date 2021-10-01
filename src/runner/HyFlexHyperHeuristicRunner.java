@@ -21,10 +21,9 @@ public class HyFlexHyperHeuristicRunner implements Callable<ThreadOutput>{
         this.hyperHeur = hyperHeur;
         this.dynSet = dynSet;
     }
-    
-    
+        
     @Override
-    public ThreadOutput call() throws Exception {              
+    public ThreadOutput call(){              
         //Load the problem instance
         hyperHeur.loadProblemDomain(problem);
         
@@ -36,8 +35,8 @@ public class HyFlexHyperHeuristicRunner implements Callable<ThreadOutput>{
             hyperHeur.run();
         }catch(Exception ex){
             ex.printStackTrace();
-            System.out.println("Dynamic set that may cause the exception: ");
-            System.out.println(dynSet);
+            System.err.println("Dynamic set that may cause the exception: ");
+            System.err.println(dynSet);
             System.exit(2);
         }
         

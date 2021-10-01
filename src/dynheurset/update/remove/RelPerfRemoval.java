@@ -21,13 +21,8 @@ public class RelPerfRemoval extends GroupRemoval{
     @Override
     public boolean canRemove() {
         //Perform the removal only if ratio% of the computational time was used up
-        if(removedHeurSet.size() < heurList.size()-1
-                && runStat.elpTime/runStat.maxTime > ratio){
-            //Remove heuristics only ONCE during the lifespan of the hyper-heuristic          
-            ratio = 2; //any number sufficiently larger than 1 will do            
-            return true;
-        } 
-        return false;
+        //and do that once
+        return removedHeurSet.isEmpty() && runStat.elpTime/runStat.maxTime > ratio;
     }
 
     @Override

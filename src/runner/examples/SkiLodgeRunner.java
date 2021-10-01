@@ -45,7 +45,7 @@ public class SkiLodgeRunner extends GenericRunner{
     @Override
     protected Problem createProblem() {
         Problem problem = new SkiLodge(rng.nextLong());
-        //Bad!
+        //Bad! Hard-coded
         String path = "D:\\NetBeansProjects\\DynHeurSet\\Data\\Ski_Lodge\\problem-01.txt";
         problem.loadInstance(path);
         return problem;

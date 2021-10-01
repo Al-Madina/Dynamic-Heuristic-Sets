@@ -26,8 +26,7 @@ public class SkiLodgeRunner2 extends SkiLodgeRunner{
     public SkiLodgeRunner2(long seed, long timeLimit) {
         super(seed, timeLimit);
     }
-    
-    
+        
     /**
      * Creates a hyper-heuristic that uses two dynamic sets to manage perturbative
      * and local search heuristics separately.

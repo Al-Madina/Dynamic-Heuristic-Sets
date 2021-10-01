@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package runner.examples;
 
 import dynheurset.DynHeurSet;
@@ -49,8 +54,8 @@ import dynheurset.update.reset.PatientReset;
 import dynheurset.update.reset.Reset;
 
 /**
- *
- * @author Ahmed Hassan
+ * A Class to create dynamic sets at random.
+ * @author Ahmed Hassan (ahmedhassan@aims.ac.za)
  */
 public class HyFlexTestRunner extends HyFlexRunner{
 
@@ -76,11 +81,6 @@ public class HyFlexTestRunner extends HyFlexRunner{
         
         //Now, our update strategy is all set, load it into the dynamic set
         dynSet.setUpdate(update);
-        //To see the dynamic set, uncomment the following lines
-        /*System.out.println(update.getClass().getSimpleName());
-        System.out.println(remove.getClass().getSimpleName());
-        System.out.println(reset.getClass().getSimpleName());
-        System.out.println(measure.getClass().getSimpleName());*/
         return dynSet;
     }    
     

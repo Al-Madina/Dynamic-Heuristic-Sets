@@ -6,7 +6,13 @@ import java.util.List;
 import util.Utility;
 
 /**
- *
+ * <code>ThreadOutput</code> encapsulates the results obtained from running a
+ * hyper-heuristic in a thread.
+ * <p> For instance, if you want to execute 30 runs. Each run will be executed
+ * in a thread in parallel with other runs using all available cores. Then, you
+ * will have 30 <code>ThreadOutput</code> objects each has its statistics for the
+ * run such as the best value obtained during the run.
+ * For instance, if you needs to use 
  * @author Ahmed Hassan (ahmedhassan@aims.ac.za)
  */
 public class ThreadOutput {
@@ -67,7 +73,7 @@ public class ThreadOutput {
     }
     
     /**
-     * Compute the performance statistics from all runs for each heuristic.
+     * Compute the performance statistics.
      */
     public void collectPerfStatistics(){
         // First, calc individual scores

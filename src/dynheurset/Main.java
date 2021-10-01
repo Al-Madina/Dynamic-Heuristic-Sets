@@ -14,7 +14,7 @@ import runner.examples.SkiLodgeRunner2;
 /**
  * The Entry point of running the simulation.
  * 
- * @author Ahmed
+ * @author Ahmed Hassan (ahmedhassan@aims.ac.za)
  */
 public class Main {
     
@@ -22,34 +22,29 @@ public class Main {
         //A random number generator to generate the seeds for all runs
         Random rng = new Random();
         //The time limit of the simulation
-        long timeLimit = 10000;
+        long timeLimit = 20000;
         //Number of runs
-        int numRuns = 4;
+        int numRuns = 5;
 
-        //We will create and execute dozens of dynamic sets (in fact, we did
-        //TENS of THOUSANDS of these on a cluster). This is important since some of the
-        //bugs are difficult to find in an interacting system like dynamic sets
-        //that consists of several components. The bugs may only appear when some
-        //components interact and one functionality of a component can cause
-        //a functionality of another component to break
-        //If you want, you can do a proper "integration test"
-        
+        //Executes many runs using randomly created dynamic sets.
+        //If there is a bug, it is likely to surface. 
+        //Alternatively, you can do "proper" tests.
         //Let us get rolling now!
         int iter = 10;
         for(int r=1; r < iter+1; r++){
-            System.out.println("Starting test No: " + r); 
+            System.out.println("Starting round No: " + r); 
             //Solve a HyFlex problem (SAT in our case) by a hyper-heuristic that
             //applies a perturbative heuristics followed by a local search heuristic
             //and uses two dynamic sets to manage each type of heuristics separately
             solveHyFlexProblem2(rng, timeLimit, numRuns);
-            System.out.println("Test No: " + r + " was successful");
+            System.out.println("All tests in round No: " + r + " were successful");
         }
         //If we reach this line, we passed all tests
         int numTests = iter*numRuns;
         //These are not tests in the technical terms; however, this is sort of
         //"proof by demonstration" if thousands of dynamic sets work gracefully
         //it is likely that integration bugs do not exist        
-        System.out.println(numTests + " tests are passed");
+        System.out.println(numTests + " tests were passed");
         
         //This a hyper-heuristic that does not distinguish between heuristics of
         //different types and uses one dynamic set to manage them all.

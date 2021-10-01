@@ -405,7 +405,7 @@ and research use only. For a commercial license please contact the authors.
 You can view a license summary [here](https://creativecommons.org/licenses/by-nc/4.0/)
 
 # API
-The documentation of JDHS can be accessed [here](#https://al-madina.github.io/Dynamic-Heuristic-Sets/).
+The documentation of JDHS can be accessed [here](https://al-madina.github.io/Dynamic-Heuristic-Sets/).
 
 # Compile
 To compile JDHS, you need to add `chesc.jar` to your class path. This jar file can be 
@@ -424,8 +424,6 @@ Then, compile: `javac -cp ./src:./lib/* @sources.txt`.
 Finally, run the application: `java -cp ./src/:./lib/* dynheurset.Main`
 
 In Windows, you need to replace `:` in the class path by `;`.
-
-That is all!
  
 # Acknowledgement
 This work is funded as part of the Multichoice Research Chair in Machine Learning at 

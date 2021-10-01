@@ -1,7 +1,11 @@
 package runner.examples;
 
 import AbstractClasses.ProblemDomain;
+import BinPacking.BinPacking;
+import FlowShop.FlowShop;
+import PersonnelScheduling.PersonnelScheduling;
 import SAT.SAT;
+import VRP.VRP;
 import dynheurset.DynHeurSet;
 import dynheurset.RunStat;
 import dynheurset.measure.ImprMeasure;
@@ -15,6 +19,7 @@ import dynheurset.update.reset.Reset;
 import hyperheuristic.HyperHeuristicIntrf;
 import hyperheuristic.examples.hyflex.HyFlexExampleHyperHeuristic1;
 import runner.GenericRunner;
+import travelingSalesmanProblem.TSP;
 
 /**
  * A subclass of <code>GenericRunner</code> that is used to create:
@@ -44,14 +49,14 @@ public class HyFlexRunner extends GenericRunner{
     @Override
     protected ProblemDomain createHyFlexProblem() {
         //create a ProblemDomain object with a seed for the random number generator
-        ProblemDomain problem = new SAT(rng.nextLong());  //boolean satisfiability
+        //ProblemDomain problem = new SAT(rng.nextLong());  //boolean satisfiability
         
         /* Uncomment on of the following line if you want to play with another problem */
-//        ProblemDomain problem = new BinPacking(rng.nextLong()); //bin packing
-//        ProblemDomain problem = new PersonnelScheduling(rng.nextLong()); //personnel scheduling
-//        ProblemDomain problem = new FlowShop(rng.nextLong()); //permutation flow shop
-//        ProblemDomain problem = new TSP(rng.nextLong()); //traveling salesman
-//        ProblemDomain problem = new VRP(rng.nextLong()); //vehicle routing
+        //ProblemDomain problem = new BinPacking(rng.nextLong()); //bin packing
+        //ProblemDomain problem = new PersonnelScheduling(rng.nextLong()); //personnel scheduling
+        //ProblemDomain problem = new FlowShop(rng.nextLong()); //permutation flow shop
+        //ProblemDomain problem = new TSP(rng.nextLong()); //traveling salesman
+        ProblemDomain problem = new VRP(rng.nextLong()); //vehicle routing
 
         //Load a problem instance to solve
         problem.loadInstance(5);

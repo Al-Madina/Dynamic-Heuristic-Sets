@@ -17,6 +17,7 @@ public class HyperHeuristicRunner2 implements Callable<ThreadOutput[]>{
     private final DynHeurSet pertDynSet;
     private final DynHeurSet lsDynSet;    
 
+    
     public HyperHeuristicRunner2(Problem problem, HyperHeuristicIntrf hyperHeur, 
             DynHeurSet pertDynSet, DynHeurSet lsDynSet) {
         this.problem = problem;
@@ -24,10 +25,9 @@ public class HyperHeuristicRunner2 implements Callable<ThreadOutput[]>{
         this.pertDynSet = pertDynSet;
         this.lsDynSet = lsDynSet;
     }
-    
-    
+        
     @Override
-    public ThreadOutput[] call() throws Exception {
+    public ThreadOutput[] call(){
         //Load the problem instance
         hyperHeur.loadProblem(problem);
         //Load dynamic sets
@@ -35,7 +35,15 @@ public class HyperHeuristicRunner2 implements Callable<ThreadOutput[]>{
         hyperHeur.setLsDynSet(lsDynSet);
         
         //Run hyper-heuristic
-        hyperHeur.run();
+        try{
+            hyperHeur.run();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            System.err.println("Dynamic set that may cause the exception: ");
+            System.err.println(pertDynSet);
+            System.err.println(lsDynSet);
+            System.exit(2);
+        }
         
         //Get runStat objects which holds different run statistics
         RunStat pertRunStat = pertDynSet.getRunStatistics();

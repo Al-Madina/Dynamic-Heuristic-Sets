@@ -28,7 +28,7 @@ public class HyFlexHyperHeuristicRunner2 implements Callable<ThreadOutput[]>{
     
     
     @Override
-    public ThreadOutput[] call() throws Exception {        
+    public ThreadOutput[] call(){        
         //Load the problem instance
         hyperHeur.loadProblemDomain(problem);
         
@@ -41,10 +41,10 @@ public class HyFlexHyperHeuristicRunner2 implements Callable<ThreadOutput[]>{
             hyperHeur.run();
         }catch(Exception ex){
             ex.printStackTrace();
-            System.out.println("Dynamic sets that may cause the problem: ");
-            System.out.println(pertDynSet);
-            System.out.println(lsDynSet);
-            System.exit(3);
+            System.err.println("Dynamic sets that may cause the problem: ");
+            System.err.println(pertDynSet);
+            System.err.println(lsDynSet);
+            System.exit(2);
         }
         
         //Get runStat objects which holds different run statistics

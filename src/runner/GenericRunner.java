@@ -48,7 +48,41 @@ public abstract class GenericRunner {
         throw new UnsupportedOperationException("Please implement this method.");
     }
     
-    private List<ThreadOutput> execute(int numRuns) throws InterruptedException, ExecutionException{        
+    private List<ThreadOutput> execute(int numRuns) 
+            throws InterruptedException, ExecutionException{        
+        //Gets number of available cores
+        int cores = Runtime.getRuntime().availableProcessors() - 1; //excludes the main thread
+        int qtn = numRuns/cores; //quotient
+        int rem = numRuns%cores; //remainder
+        //Stores the results for all runs
+        Future<ThreadOutput>[] future = new Future[numRuns];
+        //Stores the result for the current "round"
+        Future<ThreadOutput>[] roundFuture;
+        for(int r=0; r < qtn; r++){
+            int start = r*cores;
+            int end = (r+1)*cores;
+            roundFuture = submit(start, end);
+            for(int idx=0; idx < cores; idx++){
+                future[start + idx] = roundFuture[idx];
+            }
+        }
+        int start = numRuns - rem;
+        int end = numRuns;
+        roundFuture = submit(start, end);        
+        for(int idx=0; idx < rem; idx++){
+            future[start + idx] = roundFuture[idx];
+        }
+        
+        List<ThreadOutput> outputList = new ArrayList<>(numRuns);
+        for(int i=0; i < numRuns; i++){
+            outputList.add((ThreadOutput) future[i].get());
+        }
+        return outputList;
+    }
+    
+    private Future<ThreadOutput>[] submit(int start, int end) throws InterruptedException{
+        if(start >= end) return null;
+        int numRuns = end - start;
         Future<ThreadOutput>[] future = new Future[numRuns];
         ExecutorService exec = Executors.newFixedThreadPool(numRuns);
         
@@ -82,12 +116,7 @@ public abstract class GenericRunner {
         
         //Wait for all threads to finish running
         exec.awaitTermination(1, TimeUnit.DAYS);
-        
-        List<ThreadOutput> outputList = new ArrayList<>(numRuns);
-        for(int i=0; i < numRuns; i++){
-            outputList.add((ThreadOutput) future[i].get());
-        }
-        return outputList;
+        return future;
     }
     
     /**
@@ -106,6 +135,39 @@ public abstract class GenericRunner {
      */
     private List<ThreadOutput[]> execute2(int numRuns) 
             throws InterruptedException, ExecutionException {        
+        //Gets number of available cores
+        int cores = Runtime.getRuntime().availableProcessors() - 1; //excludes the main thread
+        int qtn = numRuns/cores; //quotient
+        int rem = numRuns%cores; //remainder
+        //Stores the results for all runs
+        Future<ThreadOutput[]>[] future = new Future[numRuns];
+        //Stores the result for the current "round"
+        Future<ThreadOutput[]>[] roundFuture;
+        for(int r=0; r < qtn; r++){
+            int start = r*cores;
+            int end = (r+1)*cores;
+            roundFuture = submit2(start, end); //submit2
+            for(int idx=0; idx < cores; idx++){
+                future[start + idx] = roundFuture[idx];
+            }
+        }
+        int start = numRuns - rem;
+        int end = numRuns;
+        roundFuture = submit2(start, end);  //submit2      
+        for(int idx=0; idx < rem; idx++){
+            future[start + idx] = roundFuture[idx];
+        }
+        
+        List<ThreadOutput[]> outputList = new ArrayList<>(numRuns);
+        for(int i=0; i < numRuns; i++){
+            outputList.add((ThreadOutput[]) future[i].get());
+        }
+        return outputList;
+    }
+    
+    private Future<ThreadOutput[]>[] submit2(int start, int end) throws InterruptedException{
+        if(start >= end) return null;
+        int numRuns = end - start;
         Future<ThreadOutput[]>[] future = new Future[numRuns];
         ExecutorService exec = Executors.newFixedThreadPool(numRuns);
         
@@ -143,12 +205,7 @@ public abstract class GenericRunner {
         //Wait for all threads to finish running
 
         exec.awaitTermination(1, TimeUnit.DAYS);
-        
-        List<ThreadOutput[]> outputList = new ArrayList<>(numRuns);
-        for(int i=0; i < numRuns; i++){
-            outputList.add((ThreadOutput[]) future[i].get());
-        }
-        return outputList;
+        return future;
     }
     
     public Result run(int numRuns) throws InterruptedException, ExecutionException {

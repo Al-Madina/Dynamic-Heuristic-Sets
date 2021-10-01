@@ -7,7 +7,8 @@ import problem.Problem;
 import hyperheuristic.HyperHeuristicIntrf;
 
 /**
- *
+ * This class represents an instance of a hyper-heuristic that would be executed
+ * by a thread.
  * @author Ahmed Hassan (ahmedhassan@aims.ac.za)
  */
 public class HyperHeuristicRunner implements Callable<ThreadOutput>{
@@ -22,17 +23,23 @@ public class HyperHeuristicRunner implements Callable<ThreadOutput>{
         this.hyperHeur = hyperHeur;
         this.dynSet = dynSet;
     }
-    
-    
+        
     @Override
-    public ThreadOutput call() throws Exception {        
+    public ThreadOutput call(){        
         //Load the problem instance
         hyperHeur.loadProblem(problem);
         //Load dynamic set
         hyperHeur.setDynSet(dynSet);
         
         //Run hyper-heuristic
-        hyperHeur.run();
+        try{
+            hyperHeur.run();
+        }catch(Exception ex){
+            ex.printStackTrace();
+            System.err.println("Dynamic set that may cause the exception: ");
+            System.err.println(dynSet);
+            System.exit(2);
+        }
         
         //Get runStat objects which holds different run statistics
         RunStat runStat = dynSet.getRunStatistics();

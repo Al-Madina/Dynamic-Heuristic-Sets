@@ -5,7 +5,11 @@ import java.util.List;
 import util.Utility;
 
 /**
- *
+ * <code>Result</code> captures the several statistics of executing several runs.
+ * <p>
+ * This class provides methods for inquiring the results over the runs. For 
+ * instance, to get the minimum value across all runs, you can use {@link #min}
+ * method of this class.
  * @author Ahmed Hassan (ahmedhassan@aims.ac.za)
  */
 public class Result {
