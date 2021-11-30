@@ -396,7 +396,14 @@ If you would like to contribute to JDHS, please follow the instruction provided 
 # Citation
 If you use JDHS in your research, please cite the following paper:
 ```
-The paper is accepted in TPNC but not yet published. We will update this soon.
+@inproceedings{hassan2021dynamic,
+  title={Dynamic Heuristic Set Selection for Cross-Domain Selection Hyper-heuristics},
+  author={Hassan, Ahmed and Pillay, Nelishia},
+  booktitle={International Conference on the Theory and Practice of Natural Computing},
+  pages={33--44},
+  year={2021},
+  organization={Springer}
+}
 ```
 
 # License
